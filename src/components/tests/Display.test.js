@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import Display from './../Display';
 import mockFetchShow from './../../api/fetchShow'
@@ -48,3 +48,15 @@ test('renders show season options matching your data when the button is clicked'
     const seasonOptions = await screen.findAllByTestId('season-option')
     expect(seasonOptions).toHaveLength(2)
 });
+
+test('displayfunc is called when button is pressed', async () => {
+    mockFetchShow.mockResolvedValueOnce(showTestProps)
+    const displayFunc = jest.fn()
+    render(<Display displayFunc={displayFunc}/>)
+    const button = screen.getByRole('button')
+    fireEvent.click(button)
+
+    await waitFor(() => {
+        expect(displayFunc).toHaveBeenCalled()
+    })
+})
