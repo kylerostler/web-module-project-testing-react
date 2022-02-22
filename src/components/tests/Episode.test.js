@@ -5,8 +5,18 @@ import Episode from './../Episode';
 
 const testingProps = {
     id: 1,
-    image: 'img here',
+    image: 'img',
     name: 'name',
+    season: 1,
+    number: 1,
+    summary: 'summary',
+    runtime: 1
+}
+
+const testingImage = {
+    id: 1,
+    name: 'name',
+    image: null,
     season: 1,
     number: 1,
     summary: 'summary',
@@ -24,7 +34,7 @@ test("renders the summary test passed as prop", () => {
 });
 
 test("renders default image when image is not defined", () => {
-    render(<Episode episode={testingProps} />)
-    const defaultImage = screen.queryAllByAltText('./stranger_things.png')
+    render(<Episode episode={testingImage} />)
+    const defaultImage = screen.queryByAltText('https://i.ibb.co/2FsfXqM/stranger-things.png')
     expect(defaultImage).toBeInTheDocument()
  });
